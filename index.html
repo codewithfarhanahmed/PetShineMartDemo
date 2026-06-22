@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Shine Mart, Where Happy Pets Belong</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFCE2E;
+    --yellow-deep: #F5B400;
+    --yellow-soft: #FFF3C9;
+    --yellow-tint: #FFF9E6;
+    --cream: #FFFDF6;
+    --amber: #E89B00;
+    --text: #4A3B12;
+    --text-soft: #8A7A4E;
+    --white: #FFFFFF;
+    --radius: 24px;
+    --shadow: 0 10px 34px rgba(229,165,0,0.12);
+    --shadow-hover: 0 18px 50px rgba(229,165,0,0.22);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 2px solid var(--yellow-soft);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 74px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--text); text-decoration: none; }
+  .nav-logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+  .nav-logo span em { font-style: normal; color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-soft); font-weight: 500; font-size: 0.92rem; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .cart-btn {
+    background: linear-gradient(135deg, var(--yellow), var(--yellow-deep));
+    color: var(--text); border: none; padding: 10px 22px; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cart-btn svg { width: 18px; height: 18px; }
+  .cart-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,180,0,0.45); }
+  .cart-count {
+    background: var(--text); color: var(--yellow); border-radius: 50%;
+    width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 900;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 88vh;
+    background: linear-gradient(135deg, var(--yellow-tint) 0%, var(--yellow-soft) 60%, #FFFFFF 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 5vw; position: relative; overflow: hidden;
+  }
+  .hero-content { max-width: 580px; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: var(--amber);
+    padding: 7px 20px; border-radius: 50px; font-size: 0.82rem; font-weight: 800;
+    font-family: 'Nunito', sans-serif; margin-bottom: 1.2rem;
+    box-shadow: 0 4px 16px rgba(245,180,0,0.18); border: 2px solid var(--yellow-soft);
+  }
+  .hero-badge svg { width: 16px; height: 16px; }
+  .hero h1 {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.12; margin-bottom: 1rem; color: var(--text);
+  }
+  .hero h1 em { font-style: normal; color: var(--amber); }
+  .hero p { font-size: 1.08rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 2rem; max-width: 460px; }
+  .hero-quote { font-family: 'Nunito', sans-serif; font-style: italic; font-weight: 700; color: var(--amber); margin-bottom: 2rem; font-size: 1.05rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--yellow-deep), var(--amber));
+    color: var(--white); border: none; padding: 14px 32px; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+    cursor: pointer; transition: transform .2s, box-shadow .2s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary svg { width: 18px; height: 18px; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(232,155,0,0.4); }
+  .btn-secondary {
+    background: var(--white); color: var(--text); border: 2px solid var(--yellow);
+    padding: 14px 32px; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem;
+    cursor: pointer; transition: all .2s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary svg { width: 18px; height: 18px; }
+  .btn-secondary:hover { background: var(--yellow-soft); border-color: var(--yellow-deep); }
+  .hero-image-col {
+    flex: 1; display: flex; justify-content: center; align-items: center;
+    z-index: 2; padding-left: 4vw;
+  }
+  .hero-img-wrap {
+    width: 390px; height: 390px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--yellow), var(--yellow-soft));
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 24px 60px rgba(232,155,0,0.22);
+    animation: float 4s ease-in-out infinite; border: 8px solid var(--white);
+  }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+  .hero-inner { display: flex; align-items: center; width: 100%; max-width: 1100px; gap: 4rem; }
+
+  /* floating paw icons */
+  .paw { position: absolute; opacity: 0.16; animation: drift linear infinite; pointer-events: none; color: var(--yellow-deep); }
+  @keyframes drift {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.16; }
+    90% { opacity: 0.16; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* STATS */
+  .stats {
+    background: linear-gradient(135deg, var(--yellow-deep), var(--amber));
+    padding: 2rem 5vw; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+  }
+  .stat { text-align: center; color: var(--white); }
+  .stat-num { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 2rem; display: inline-flex; align-items: center; gap: 6px; }
+  .stat-num svg { width: 22px; height: 22px; }
+  .stat-label { font-size: 0.82rem; opacity: 0.92; }
+
+  /* SECTION */
+  .section { padding: 5rem 5vw; }
+  .section-title {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 3vw, 2.6rem);
+    text-align: center; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .section-title svg { width: 32px; height: 32px; color: var(--yellow-deep); }
+  .section-quote { text-align: center; font-family: 'Nunito', sans-serif; font-style: italic; font-weight: 700; color: var(--amber); margin-bottom: 3rem; font-size: 1.1rem; }
+
+  /* CATEGORY CHIPS */
+  .filter-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .filter-chip {
+    padding: 9px 24px; border-radius: 50px; border: 2px solid var(--yellow);
+    background: var(--white); font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; transition: all .2s; color: var(--text-soft);
+  }
+  .filter-chip.active, .filter-chip:hover {
+    background: linear-gradient(135deg, var(--yellow), var(--yellow-deep));
+    color: var(--text); border-color: transparent;
+  }
+
+  /* PRODUCT GRID */
+  .products-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.8rem; max-width: 1200px; margin: 0 auto;
+  }
+  .product-card {
+    background: var(--white); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s;
+    cursor: pointer; position: relative; border: 2px solid var(--yellow-soft);
+  }
+  .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .product-img {
+    width: 100%; height: 200px; object-fit: cover; display: block;
+    background: var(--yellow-soft);
+  }
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--yellow); color: var(--text);
+    padding: 5px 14px; border-radius: 50px; font-size: 0.72rem; font-weight: 800;
+    font-family: 'Nunito', sans-serif; box-shadow: 0 4px 12px rgba(245,180,0,0.3);
+  }
+  .product-body { padding: 1.2rem; }
+  .product-category { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--amber); font-weight: 700; margin-bottom: 4px; }
+  .product-name { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 6px; }
+  .product-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 1rem; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.2rem; color: var(--amber); }
+  .add-btn {
+    background: linear-gradient(135deg, var(--yellow), var(--yellow-deep));
+    color: var(--text); border: none; padding: 9px 18px; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.85rem;
+    cursor: pointer; transition: transform .2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .add-btn svg { width: 15px; height: 15px; }
+  .add-btn:hover { transform: scale(1.08); }
+
+  /* FEATURES */
+  .features-bg { background: linear-gradient(135deg, var(--yellow-tint), var(--white)); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .feature-card {
+    background: var(--white); border-radius: var(--radius); padding: 2rem 1.5rem;
+    text-align: center; box-shadow: var(--shadow); border: 2px solid var(--yellow-soft);
+    transition: transform .2s;
+  }
+  .feature-card:hover { transform: translateY(-5px); }
+  .feature-icon {
+    width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 50%;
+    background: linear-gradient(135deg, var(--yellow-soft), var(--yellow));
+    display: flex; align-items: center; justify-content: center; color: var(--amber);
+  }
+  .feature-icon svg { width: 30px; height: 30px; }
+  .feature-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .testimonial-card {
+    background: var(--white); border-radius: var(--radius); padding: 1.8rem;
+    box-shadow: var(--shadow); border-left: 5px solid var(--yellow);
+  }
+  .testimonial-head { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+  .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+  .testimonial-stars { color: var(--yellow-deep); display: flex; gap: 2px; }
+  .testimonial-stars svg { width: 16px; height: 16px; }
+  .testimonial-text { font-size: 0.9rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .testimonial-author { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem; }
+  .testimonial-pet { font-size: 0.78rem; color: var(--amber); font-weight: 600; }
+
+  /* CART SIDEBAR */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(74,59,18,0.45);
+    z-index: 200; opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-sidebar {
+    position: fixed; top: 0; right: -440px; width: 420px; max-width: 96vw;
+    height: 100vh; background: var(--white); z-index: 201;
+    box-shadow: -10px 0 60px rgba(74,59,18,0.18);
+    transition: right .35s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column; border-radius: 24px 0 0 24px;
+  }
+  .cart-sidebar.open { right: 0; }
+  .cart-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 1.8rem; border-bottom: 2px solid var(--yellow-soft);
+  }
+  .cart-title { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+  .cart-title svg { width: 22px; height: 22px; color: var(--yellow-deep); }
+  .cart-close { background: none; border: none; cursor: pointer; color: var(--text-soft); transition: transform .2s; display: flex; }
+  .cart-close svg { width: 24px; height: 24px; }
+  .cart-close:hover { transform: rotate(90deg); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.8rem; }
+  .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--text-soft); font-size: 1rem; }
+  .cart-empty-icon { width: 64px; height: 64px; margin: 0 auto 1rem; color: var(--yellow); }
+  .cart-item {
+    display: flex; gap: 1rem; align-items: center;
+    padding: 1rem 0; border-bottom: 1px solid var(--yellow-soft);
+  }
+  .cart-item-img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; background: var(--yellow-soft); }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.92rem; margin-bottom: 2px; }
+  .cart-item-price { font-size: 0.85rem; color: var(--amber); font-weight: 700; }
+  .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .qty-btn { background: var(--yellow-soft); border: none; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 1rem; transition: background .2s; color: var(--text); }
+  .qty-btn:hover { background: var(--yellow); }
+  .qty-num { font-family: 'Nunito', sans-serif; font-weight: 800; min-width: 20px; text-align: center; }
+  .remove-item { background: none; border: none; color: var(--amber); cursor: pointer; display: flex; }
+  .remove-item svg { width: 18px; height: 18px; }
+  .cart-footer { padding: 1.2rem 1.8rem; border-top: 2px solid var(--yellow-soft); }
+  .cart-total { display: flex; justify-content: space-between; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.2rem; margin-bottom: 1rem; }
+  .order-btn {
+    width: 100%; padding: 15px; border: none; border-radius: 50px;
+    background: linear-gradient(135deg, var(--yellow-deep), var(--amber));
+    color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.05rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform .2s, box-shadow .2s; margin-bottom: 0.8rem;
+  }
+  .order-btn svg { width: 20px; height: 20px; }
+  .order-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232,155,0,0.4); }
+  .whatsapp-btn {
+    width: 100%; padding: 15px; border: none; border-radius: 50px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.05rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,211,102,0.35); }
+  .whatsapp-btn svg { width: 22px; height: 22px; }
+
+  /* ORDER CONFIRM PANEL */
+  .order-panel { display: none; }
+  .order-panel.show { display: block; }
+  .order-note {
+    background: var(--yellow-tint); border: 2px solid var(--yellow-soft); border-radius: 16px;
+    padding: 0.9rem 1rem; font-size: 0.82rem; color: var(--text-soft); line-height: 1.55; margin-bottom: 0.9rem;
+  }
+  .order-note strong { color: var(--text); }
+  .receipt-preview { margin-bottom: 0.9rem; text-align: center; }
+  .receipt-preview img { max-width: 100%; border-radius: 14px; border: 2px solid var(--yellow-soft); box-shadow: var(--shadow); }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: linear-gradient(135deg, var(--yellow-deep), var(--amber));
+    padding: 4rem 5vw; text-align: center; color: var(--white);
+  }
+  .newsletter h2 { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 2rem; margin-bottom: 0.8rem; }
+  .newsletter p { opacity: 0.94; margin-bottom: 2rem; }
+  .newsletter-form { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  .newsletter-input {
+    padding: 13px 22px; border-radius: 50px; border: none; font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif; outline: none; min-width: 260px;
+  }
+  .newsletter-submit {
+    padding: 13px 28px; border-radius: 50px; border: 2px solid var(--white);
+    background: transparent; color: var(--white); font-family: 'Nunito', sans-serif; font-weight: 800;
+    font-size: 0.95rem; cursor: pointer; transition: all .2s;
+  }
+  .newsletter-submit:hover { background: var(--white); color: var(--amber); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.78);
+    padding: 3rem 5vw 1.5rem;
+  }
+  .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; max-width: 1100px; margin: 0 auto; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .footer-brand .footer-logo { display: flex; align-items: center; gap: 10px; font-family:'Nunito',sans-serif; font-weight:900; font-size:1.4rem; color: var(--yellow); }
+  .footer-brand .footer-logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+  .footer-brand p { margin-top: 1rem; font-size: 0.85rem; line-height: 1.7; max-width: 260px; }
+  .footer-socials { margin-top: 1rem; display: flex; gap: .8rem; }
+  .footer-socials a { color: var(--yellow); display: flex; }
+  .footer-socials svg { width: 22px; height: 22px; }
+  .footer-col h4 { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col a { color: rgba(255,255,255,0.68); text-decoration: none; font-size: 0.85rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--yellow); }
+  .footer-bottom { text-align: center; padding-top: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.45); max-width: 1100px; margin: 0 auto; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120px);
+    background: var(--text); color: var(--white); padding: 14px 28px; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.95rem;
+    z-index: 300; transition: transform .35s; display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 30px rgba(74,59,18,0.35);
+  }
+  .toast svg { width: 18px; height: 18px; color: var(--yellow); flex-shrink: 0; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* RESPONSIVE */
+  @media(max-width: 768px) {
+    .hero-inner { flex-direction: column; text-align: center; }
+    .hero-btns { justify-content: center; }
+    .hero-image-col { padding-left: 0; }
+    .hero-img-wrap { width: 260px; height: 260px; }
+    .nav-links { display: none; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=120&q=80" alt="Pet Shine Mart logo" />
+    <span>Pet Shine <em>Mart</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#features">Why Us</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="toggleCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="paw" style="left:8%;animation-duration:12s;animation-delay:0s;width:26px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c-2 0-4 1.5-4 3.5S10 21 12 21s4-1.5 4-3.5S14 14 12 14zM6.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM15 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+  <svg class="paw" style="left:22%;animation-duration:15s;animation-delay:3s;width:40px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c-2 0-4 1.5-4 3.5S10 21 12 21s4-1.5 4-3.5S14 14 12 14zM6.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM15 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+  <svg class="paw" style="left:75%;animation-duration:11s;animation-delay:1s;width:30px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c-2 0-4 1.5-4 3.5S10 21 12 21s4-1.5 4-3.5S14 14 12 14zM6.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM15 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+  <svg class="paw" style="left:88%;animation-duration:14s;animation-delay:5s;width:24px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c-2 0-4 1.5-4 3.5S10 21 12 21s4-1.5 4-3.5S14 14 12 14zM6.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM15 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+  <svg class="paw" style="left:55%;animation-duration:16s;animation-delay:2s;width:34px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c-2 0-4 1.5-4 3.5S10 21 12 21s4-1.5 4-3.5S14 14 12 14zM6.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17.5 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM15 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg>
+        The Brightest Pet Store In Town
+      </div>
+      <h1>Everything Your Pet <em>Deserves</em>, Delivered With Love</h1>
+      <p>From wholesome meals to playful toys and trusted medicines, Pet Shine Mart is your one stop shop for happy, healthy companions.</p>
+      <div class="hero-quote">"A house is never lonely where a loving pet waits."</div>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Shop Now
+        </a>
+        <a href="#features" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Learn More
+        </a>
+      </div>
+    </div>
+    <div class="hero-image-col">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&q=80" alt="Happy golden dog" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">2,400+</div><div class="stat-label">Happy Pet Owners</div></div>
+  <div class="stat"><div class="stat-num">150+</div><div class="stat-label">Loved Products</div></div>
+  <div class="stat"><div class="stat-num">4.9 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg></div><div class="stat-label">Average Rating</div></div>
+  <div class="stat"><div class="stat-num">Same Day</div><div class="stat-label">WhatsApp Orders</div></div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Our Products
+  </div>
+  <div class="section-quote">"Treat your pet today, and watch their tail say thank you."</div>
+
+  <div class="filter-row">
+    <button class="filter-chip active" onclick="filterProducts('all', this)">All</button>
+    <button class="filter-chip" onclick="filterProducts('food', this)">Pet Food</button>
+    <button class="filter-chip" onclick="filterProducts('toys', this)">Toys</button>
+    <button class="filter-chip" onclick="filterProducts('medicine', this)">Medicine</button>
+    <button class="filter-chip" onclick="filterProducts('accessories', this)">Accessories</button>
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-bg" id="features">
+  <div class="section-title">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    Why Pet Parents Love Us
+  </div>
+  <div class="section-quote">"We care for your pet as deeply as you do."</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <div class="feature-title">WhatsApp Orders</div>
+      <div class="feature-desc">Add items to your cart and send the order straight to our chat. Quick, easy and personal.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 5-3.5 7.5-8.5 9.5C7.5 19.5 3 17 3 12V5l9-3 9 3z"/></svg></div>
+      <div class="feature-title">Vet Approved Products</div>
+      <div class="feature-desc">Every medicine and supplement is verified and recommended by certified veterinarians.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+      <div class="feature-title">Natural Ingredients</div>
+      <div class="feature-desc">Our food range uses real, wholesome ingredients with no nasty additives or artificial flavours.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+      <div class="feature-title">Free Gifts On Orders</div>
+      <div class="feature-desc">Every order above Rs. 2,000 includes a free surprise treat or toy for your pet.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <div class="feature-title">Same Day Delivery</div>
+      <div class="feature-desc">Order before 2 PM and get your pet's goodies delivered to your door the very same day.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="feature-title">Pet Care Advice</div>
+      <div class="feature-desc">Chat with us on WhatsApp anytime. Our team loves answering your pet care questions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="reviews">
+  <div class="section-title">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg>
+    Pet Parents Say
+  </div>
+  <div class="section-quote">"Real stories from real furry families."</div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-head">
+        <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt="Sana Malik" />
+        <div>
+          <div class="testimonial-author">Sana Malik</div>
+          <div class="testimonial-pet">Mom of Bruno and Coco</div>
+        </div>
+      </div>
+      <div class="testimonial-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg></div>
+      <div class="testimonial-text">"The WhatsApp ordering is brilliant. I added four items, tapped order, and a neat receipt landed in their chat. Everything arrived within hours. I adore this store."</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-head">
+        <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt="Ahmed Raza" />
+        <div>
+          <div class="testimonial-author">Ahmed Raza</div>
+          <div class="testimonial-pet">Dad of Whiskers</div>
+        </div>
+      </div>
+      <div class="testimonial-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg></div>
+      <div class="testimonial-text">"Finally a pet store that stocks proper vet approved medicines. My cat had a skin condition and Pet Shine had exactly what the vet prescribed. Fast delivery too."</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-head">
+        <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt="Fatima Zahra" />
+        <div>
+          <div class="testimonial-author">Fatima Zahra</div>
+          <div class="testimonial-pet">Mom of Mango</div>
+        </div>
+      </div>
+      <div class="testimonial-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg></div>
+      <div class="testimonial-text">"The toys section is wonderful. My parrot went delightfully wild for the new chew rings. The packaging was adorable and they even tucked in a little treat."</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>Get Pet Care Tips And Exclusive Deals</h2>
+  <p>Join 2,000 plus pet parents who get our weekly newsletter.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="Enter your email address" />
+    <button class="newsletter-submit">Subscribe Free</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=120&q=80" alt="Pet Shine Mart logo" />
+        Pet Shine Mart
+      </div>
+      <p>Your neighbourhood pet store, now online. We are devoted to making your pets' lives happier, healthier and brighter every single day.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#products">Shop All</a></li>
+        <li><a href="#products">Pet Food</a></li>
+        <li><a href="#products">Toys</a></li>
+        <li><a href="#products">Medicine</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">How To Order</a></li>
+        <li><a href="#">Delivery Info</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://wa.me/923001234567">WhatsApp Us</a></li>
+        <li><a href="#">Islamabad, Pakistan</a></li>
+        <li><a href="#">+92 300 123 4567</a></li>
+        <li><a href="#">hello@petshinemart.pk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">Copyright 2026 Pet Shine Mart, made with love for pet lovers everywhere.</div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Your Cart
+    </div>
+    <button class="cart-close" onclick="toggleCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="cart-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+      <p>Your cart is empty.</p>
+      <p style="font-size:.82rem;margin-top:.5rem">Add some treats for your pet.</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">Rs. 0</span>
+    </div>
+
+    <button class="order-btn" id="orderNowBtn" onclick="orderNow()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
+      Order Now
+    </button>
+
+    <div class="order-panel" id="orderPanel">
+      <div class="receipt-preview" id="receiptPreview"></div>
+      <div class="order-note">
+        <strong>Receipt ready.</strong> Your order receipt has been saved as a PNG image. Tap the button below to open WhatsApp, then attach the saved receipt image to complete your order.
+      </div>
+      <button class="whatsapp-btn" onclick="sendToWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send Order On WhatsApp
+      </button>
+      <p style="text-align:center;font-size:.72rem;color:var(--text-soft);margin-top:.7rem">Did not download? <a href="#" onclick="downloadReceipt();return false;" style="color:var(--amber);font-weight:700">Save receipt again</a></p>
+    </div>
+    <p style="text-align:center;font-size:.75rem;color:var(--text-soft);margin-top:.8rem">A neat receipt image is created for every order.</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg>
+  <span>Added to cart.</span>
+</div>
+
+<script>
+const WHATSAPP_NUMBER = '923001234567'; // replace with real number
+
+const CATEGORY_LABEL = { food:'Food', toys:'Toys', medicine:'Medicine', accessories:'Accessories' };
+
+const products = [
+  { id: 1, category: 'food', name: 'Royal Canin Adult Dog Food', desc: 'Premium dry kibble for adult dogs. Supports skin, coat and digestion.', price: 1850, badge: 'Bestseller', img: 'https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?w=400&q=80' },
+  { id: 2, category: 'food', name: 'Whiskas Cat Food Tuna', desc: 'Irresistible tuna flavour wet food that cats go wild for.', price: 480, badge: 'Cat Favourite', img: 'https://images.unsplash.com/photo-1548767797-d8c844163c4a?w=400&q=80' },
+  { id: 3, category: 'food', name: 'Pedigree Puppy Milk Treat', desc: 'Nutritious milk flavoured biscuits for growing puppies.', price: 650, img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80' },
+  { id: 4, category: 'food', name: 'Bird Seed Mix Deluxe', desc: 'A rich blend of seeds, millet and dried fruits for parrots and finches.', price: 390, img: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=400&q=80' },
+  { id: 5, category: 'toys', name: 'Kong Classic Chew Toy', desc: 'Durable rubber toy great for stuffing with treats. Hours of fun.', price: 1200, badge: 'Hot Pick', img: 'https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?w=400&q=80' },
+  { id: 6, category: 'toys', name: 'Feather Wand Cat Teaser', desc: 'Interactive feather teaser to keep your cat active and entertained.', price: 350, img: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80' },
+  { id: 7, category: 'toys', name: 'Squeaky Plush Bunny', desc: 'Super soft squeaky plush toy, perfect for small dogs and puppies.', price: 580, badge: 'So Cute', img: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=80' },
+  { id: 8, category: 'medicine', name: 'Frontline Plus Flea Treatment', desc: 'Vet approved flea and tick treatment. Fast acting, long lasting protection.', price: 1650, badge: 'Vet Pick', img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80' },
+  { id: 9, category: 'medicine', name: 'PetCalm Anxiety Drops', desc: 'Natural herbal drops to calm anxious dogs during storms or travel.', price: 920, img: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=400&q=80' },
+  { id: 10, category: 'medicine', name: 'Vitamin C Supplement For Guinea Pigs', desc: 'Essential daily vitamin supplement to keep small pets healthy.', price: 720, img: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&q=80' },
+  { id: 11, category: 'accessories', name: 'Adjustable Pet Harness In Sunny Gold', desc: 'Soft, breathable harness for small to medium dogs. No pull design.', price: 1100, badge: 'Trending', img: 'https://images.unsplash.com/photo-1601758177266-bc599de87707?w=400&q=80' },
+  { id: 12, category: 'accessories', name: 'Stainless Steel Food And Water Bowls', desc: 'Set of two durable, non slip bowls. Easy to clean and pet safe.', price: 750, img: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&q=80' },
+];
+
+let cart = [];
+let lastOrder = null;
+let receiptDataUrl = null;
+
+const ICONS = {
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+  star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.26H22l-6.19 4.5L18.18 22 12 17.27 5.82 22l2.37-8.24L2 9.26h7.61z"/></svg>'
+};
+
+function renderProducts(filter = 'all') {
+  const grid = document.getElementById('productsGrid');
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-id="${p.id}">
+      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      <img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy" />
+      <div class="product-body">
+        <div class="product-category">${CATEGORY_LABEL[p.category]}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. ${p.price.toLocaleString()}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})">${ICONS.plus} Add</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(cat, el) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts(cat);
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(i => i.id === id);
+  if (existing) { existing.qty++; }
+  else { cart.push({...product, qty: 1}); }
+  resetOrderPanel();
+  updateCartUI();
+  showToast(`${product.name} added.`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  resetOrderPanel();
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else { resetOrderPanel(); updateCartUI(); }
+}
+
+function resetOrderPanel() {
+  document.getElementById('orderPanel').classList.remove('show');
+  document.getElementById('orderNowBtn').style.display = 'flex';
+  document.getElementById('receiptPreview').innerHTML = '';
+  receiptDataUrl = null;
+  lastOrder = null;
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+  document.getElementById('cartTotal').textContent = `Rs. ${total.toLocaleString()}`;
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">${ICONS.cart}</div><p>Your cart is empty.</p><p style="font-size:.82rem;margin-top:.5rem">Add some treats for your pet.</p></div>`;
+    footerEl.style.display = 'none';
+  } else {
+    footerEl.style.display = 'block';
+    itemsEl.innerHTML = cart.map(i => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${i.img}" alt="${i.name}" />
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-price">Rs. ${(i.price * i.qty).toLocaleString()}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${i.id},-1)">&minus;</button>
+            <span class="qty-num">${i.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+          </div>
+        </div>
+        <button class="remove-item" onclick="removeFromCart(${i.id})">${ICONS.trash}</button>
+      </div>
+    `).join('');
+  }
+}
+
+// ORDER NOW: snapshot order, build receipt PNG, download it, reveal WhatsApp step
+function orderNow() {
+  if (cart.length === 0) return;
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const orderId = 'PSM' + Date.now().toString().slice(-6);
+  const now = new Date();
+  lastOrder = {
+    id: orderId,
+    items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
+    total,
+    date: now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }),
+    time: now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })
+  };
+
+  buildReceiptImage(lastOrder).then(dataUrl => {
+    receiptDataUrl = dataUrl;
+    document.getElementById('receiptPreview').innerHTML = `<img src="${dataUrl}" alt="Order receipt" />`;
+    document.getElementById('orderNowBtn').style.display = 'none';
+    document.getElementById('orderPanel').classList.add('show');
+    downloadReceipt();
+    showToast('Receipt saved as image.');
+  });
+}
+
+// Draw a cute yellow and white receipt and return PNG data url
+function buildReceiptImage(order) {
+  return new Promise(resolve => {
+    const scale = 2;
+    const W = 480, lineH = 34;
+    const headerH = 150, footerH = 150;
+    const bodyH = order.items.length * lineH + 120;
+    const H = headerH + bodyH + footerH;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = W * scale; canvas.height = H * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    ctx.fillStyle = '#FFFDF6';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = '#F5B400';
+    ctx.fillRect(0, 0, W, headerH);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = '900 30px Nunito, sans-serif';
+    ctx.fillText('Pet Shine Mart', W/2, 56);
+    ctx.font = '600 14px Poppins, sans-serif';
+    ctx.fillText('Where Happy Pets Belong', W/2, 80);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    roundRect(ctx, W/2 - 110, 100, 220, 32, 16);
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 14px Nunito, sans-serif';
+    ctx.fillText('Order ' + order.id, W/2, 121);
+
+    let y = headerH + 34;
+    ctx.fillStyle = '#8A7A4E';
+    ctx.font = '500 13px Poppins, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Date: ' + order.date, 40, y);
+    ctx.textAlign = 'right';
+    ctx.fillText('Time: ' + order.time, W - 40, y);
+
+    y += 18;
+    dashed(ctx, 40, y, W - 40, y, '#F0DFA0');
+
+    y += 28;
+    ctx.fillStyle = '#4A3B12';
+    ctx.font = '800 13px Nunito, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Item', 40, y);
+    ctx.textAlign = 'center';
+    ctx.fillText('Qty', W - 150, y);
+    ctx.textAlign = 'right';
+    ctx.fillText('Amount', W - 40, y);
+
+    y += 10;
+    dashed(ctx, 40, y, W - 40, y, '#F0DFA0');
+
+    ctx.font = '500 14px Poppins, sans-serif';
+    order.items.forEach(it => {
+      y += lineH;
+      ctx.fillStyle = '#4A3B12';
+      ctx.textAlign = 'left';
+      ctx.fillText(truncate(ctx, it.name, W - 230), 40, y);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#8A7A4E';
+      ctx.fillText(String(it.qty), W - 150, y);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#4A3B12';
+      ctx.fillText('Rs. ' + (it.price * it.qty).toLocaleString(), W - 40, y);
+    });
+
+    y += 26;
+    dashed(ctx, 40, y, W - 40, y, '#F0DFA0');
+
+    y += 18;
+    ctx.fillStyle = '#FFF3C9';
+    roundRect(ctx, 40, y, W - 80, 44, 12);
+    ctx.fill();
+    ctx.fillStyle = '#4A3B12';
+    ctx.font = '900 18px Nunito, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Total', 60, y + 29);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#E89B00';
+    ctx.fillText('Rs. ' + order.total.toLocaleString(), W - 60, y + 29);
+
+    const fy = H - footerH;
+    ctx.fillStyle = '#FFF9E6';
+    ctx.fillRect(0, fy, W, footerH);
+    ctx.fillStyle = '#8A7A4E';
+    ctx.textAlign = 'center';
+    ctx.font = '600 13px Poppins, sans-serif';
+    ctx.fillText('Thank you for shopping with us.', W/2, fy + 44);
+    ctx.font = 'italic 700 14px Nunito, sans-serif';
+    ctx.fillStyle = '#E89B00';
+    ctx.fillText('"Pets leave paw prints on our hearts."', W/2, fy + 74);
+    ctx.fillStyle = '#8A7A4E';
+    ctx.font = '500 12px Poppins, sans-serif';
+    ctx.fillText('WhatsApp +92 300 123 4567   |   Islamabad, Pakistan', W/2, fy + 104);
+
+    resolve(canvas.toDataURL('image/png'));
+  });
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function dashed(ctx, x1, y1, x2, y2, color) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+  ctx.setLineDash([5, 5]); ctx.beginPath();
+  ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.restore();
+}
+function truncate(ctx, text, maxW) {
+  if (ctx.measureText(text).width <= maxW) return text;
+  let t = text;
+  while (t.length > 4 && ctx.measureText(t + '...').width > maxW) t = t.slice(0, -1);
+  return t + '...';
+}
+
+function downloadReceipt() {
+  if (!receiptDataUrl || !lastOrder) return;
+  const a = document.createElement('a');
+  a.href = receiptDataUrl;
+  a.download = `PetShineMart-Receipt-${lastOrder.id}.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// Open WhatsApp with the order text; user attaches the saved receipt PNG
+function sendToWhatsApp() {
+  if (!lastOrder) return;
+  let msg = `Pet Shine Mart Order ${lastOrder.id}\n\nHello, I would like to place this order:\n\n`;
+  lastOrder.items.forEach(i => {
+    msg += `${i.name}\n  Qty ${i.qty} x Rs.${i.price.toLocaleString()} = Rs.${(i.price*i.qty).toLocaleString()}\n\n`;
+  });
+  msg += `Total Rs. ${lastOrder.total.toLocaleString()}\n\nI am attaching the order receipt image. Please confirm. Thank you.`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = `${ICONS.star}<span>${msg}</span>`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+renderProducts();
+</script>
+</body>
+</html>
